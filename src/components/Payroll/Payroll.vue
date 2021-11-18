@@ -1,5 +1,5 @@
 <template>
-	<div>askjdhkajshdkljahsd</div>
+	<div>test</div>
 </template>
 
 <script lang="ts" src="./Payroll"></script>

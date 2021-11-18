@@ -1,0 +1,8 @@
+.not_found_container {
+	@apply flex justify-center items-center w-screen h-screen bg-white;
+}
+
+.not_found_text {
+	@apply text-gray-400;
+	font-size: 50px;
+}

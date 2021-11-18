@@ -17,16 +17,14 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 axios.interceptors.request.use(
 	async config => {
 		let authToken = Cookies.get('auth_token');
+		config.headers = {
+			Authorization: `Bearer ${authToken}`
+		};
 
-		console.log(authToken);
-
-		config.headers['Authorization'] = `Bearer ${authToken}`;
 		config.url = `${API_ENDPOINT}/${config.url}`;
-
 		return await config;
 	},
-
-	error => {
+	function (error) {
 		return Promise.reject(error);
 	}
 );

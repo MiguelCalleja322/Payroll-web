@@ -1,5 +1,5 @@
 <template>
-	<div class="w-screen h-screen">
+	<div class="w-screen h-screen" v-if="user">
 		<nav class="bg-gray-800">
 			<div class="navbar_container">
 				<div class="nav_sm_container_child">
@@ -19,13 +19,9 @@
 							<div class="flex space-x-4">
 								<router-link to="/" class="navbar_sm_links">Home</router-link>
 
-								<router-link to="/" class="navbar_sm_links">Adviser</router-link>
-
-								<router-link to="/" class="navbar_sm_links">Clients</router-link>
+								<router-link to="/salesrep" class="navbar_sm_links">Sales Representative</router-link>
 
 								<router-link to="/" class="navbar_sm_links">Create Payroll</router-link>
-
-								<router-link to="/" class="navbar_sm_links">Create/Edit Payroll</router-link>
 
 								<router-link to="/" class="navbar_sm_links">PDFs</router-link>
 							</div>
@@ -37,17 +33,13 @@
 			<!-- Mobile menu, show/hide based on menu state. -->
 			<div class="sm:hidden" id="mobile-menu">
 				<div class="px-2 pt-2 pb-3 space-y-1">
-					<router-link to="/" class="" aria-current="page">Home</router-link>
+					<router-link to="/" class="navbar_sm_links">Home</router-link>
 
-					<router-link to="/" class="navbar_mobile_links">Adviser</router-link>
+					<router-link to="/salesrep" class="navbar_sm_links">Sales Representative</router-link>
 
-					<router-link to="/" class="navbar_mobile_links">Clients</router-link>
+					<router-link to="/" class="navbar_sm_links">Create Payroll</router-link>
 
-					<router-link to="/" class="navbar_mobile_links">Create Payroll</router-link>
-
-					<router-link to="/" class="navbar_mobile_links">Create/Edit Payroll</router-link>
-
-					<router-link to="/" class="navbar_mobile_links">PDFs</router-link>
+					<router-link to="/" class="navbar_sm_links">PDFs</router-link>
 				</div>
 			</div>
 		</nav>
@@ -56,7 +48,7 @@
 			<RouterView />
 		</div>
 	</div>
-	<!-- <Login class="main_container" v-else></Login> -->
+	<Login class="main_container" v-else></Login>
 </template>
 
 <script lang="ts" src="./Home.ts"></script>

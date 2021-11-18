@@ -22,6 +22,18 @@ export const useAuthStore = defineStore('auth', {
 				});
 		},
 
+		async signup(signupCredentials: object) {
+			await axios
+				.post(`${name}/signup`, signupCredentials)
+				.then(response => {
+					this.error = null;
+					this.accessToken = response.data.access_token;
+				})
+				.catch(error => {
+					this.error = error;
+				});
+		},
+
 		async logout() {
 			await axios.post(`${name}/logout`);
 		},

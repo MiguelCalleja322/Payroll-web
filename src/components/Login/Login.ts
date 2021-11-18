@@ -23,8 +23,11 @@ export default defineComponent({
 
 			if (authStore.getAccessToken) {
 				await Cookies.set('auth_token', authStore.getAccessToken, { expires: 7 });
-				if (!route.name) await router.push('/payroll');
-				else await router.push('/');
+				if (!route.name) {
+					await router.push('/salesrep');
+				} else {
+					await router.push('/salesrep');
+				}
 			}
 		};
 

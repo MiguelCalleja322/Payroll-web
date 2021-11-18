@@ -8,12 +8,22 @@ const routes = [
 			{
 				path: '/payroll',
 				component: () => import(/* webpackChunkName: Payroll */ './components/Payroll/Payroll.vue')
+			},
+			{
+				path: '/salesrep',
+				component: () => import(/* webpackChunkName: "signup" */ './components/Salesrep/Salesrep.vue')
 			}
 		]
 	},
 	{
-		path: '/login',
-		component: () => import(/* webpackChunkName: Login */ './components/Login/Login.vue')
+		path: '/signup',
+		component: () => import(/* webpackChunkName: "signup" */ './components/Signup/Signup.vue')
+	},
+
+	{
+		path: '/:pathMatch(.*)*',
+		name: '404',
+		component: () => import(/* webpackChunkName: "404" */ './components/404/404.vue')
 	}
 ];
 

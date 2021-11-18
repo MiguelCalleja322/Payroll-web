@@ -28,7 +28,7 @@ export default defineComponent({
 			console.log(user.value);
 
 			if (user.value && !route.name) {
-				await router.push('/');
+				router.push('/payroll');
 			}
 		};
 
