@@ -1,5 +1,5 @@
 <template>
-	<div class="w-screen h-screen" v-if="user">
+	<div class="h-screen w-screen" v-if="user">
 		<nav class="bg-gray-800">
 			<div class="navbar_container">
 				<div class="nav_sm_container_child">
@@ -44,8 +44,12 @@
 			</div>
 		</nav>
 
-		<div>
-			<RouterView />
+		<div class="w-full max-h-full flex flex-col overflow-x-auto">
+			<div class="flex-grow">
+				<div class="h-full">
+					<RouterView />
+				</div>
+			</div>
 		</div>
 	</div>
 	<Login class="main_container" v-else></Login>

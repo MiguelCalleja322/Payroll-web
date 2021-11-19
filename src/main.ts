@@ -5,6 +5,7 @@ import router from './router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createPinia } from 'pinia';
+import VCalendar from 'v-calendar';
 const app = createApp(App);
 
 app.use(createPinia());
@@ -30,4 +31,5 @@ axios.interceptors.request.use(
 );
 
 app.use(router);
+app.use(VCalendar, {});
 app.mount('#app');

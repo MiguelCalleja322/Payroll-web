@@ -13,6 +13,9 @@
 					<div class="mb-3">
 						<input class="input_textbox" placeholder="Tax Rate" v-model="salesRepData.tax_rate" />
 					</div>
+					<div class="mb-3">
+						<input class="input_textbox" placeholder="Tax Rate" v-model="salesRepData.bonuses" />
+					</div>
 				</div>
 
 				<div>
