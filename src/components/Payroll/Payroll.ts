@@ -4,6 +4,7 @@ import { useSalesrepStore } from '../../store/salesrep';
 import { Calendar, DatePicker } from 'v-calendar';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+import { useCommissionStore } from '../../store/commission';
 
 export default defineComponent({
 	components: {
@@ -12,14 +13,17 @@ export default defineComponent({
 	},
 	setup() {
 		dayjs.extend(isBetween);
+
+		const commissionStore = useCommissionStore();
 		const salesrepStore = useSalesrepStore();
 		const salesreps: any = ref<Salesrep>();
-		const salesRepData = reactive({
-			commission_percentage: '',
-			tax_rate: '',
-			bonuses: ''
+		const salesRepData: any = reactive({
+			commission_percentage: 0,
+			tax_rate: 0,
+			bonuses: 0
 		});
 		const salesRepName = ref('Select Representative');
+		const salesRepId = ref('');
 		const dropdown = ref(false);
 		const range = reactive({
 			start: new Date(),
@@ -27,22 +31,19 @@ export default defineComponent({
 		});
 		const disabledStartDay = ref('');
 		const disabledEndDay = ref('');
-
 		const comData: any = reactive({
-			commisionPer: '',
-			taxRate: '',
 			openingBalance: '',
 			bonuses: '',
 			clientName: '',
-			eliteInsureCommision: ''
+			eliteInsureCommision: '',
+			numberOfClients: '',
+			taxable: '',
+			salesRepCommission: ''
 		});
-
-		const commissionProcessing = () => {};
 
 		const storeSalesRep = async () => {
 			await salesrepStore.index();
 			salesreps.value = salesrepStore.getSalesrep;
-			console.log(salesreps.value);
 		};
 
 		const showSalesRepCreds = async (salesrep: any) => {
@@ -50,6 +51,7 @@ export default defineComponent({
 			salesRepData.tax_rate = salesrep.tax_rate;
 			salesRepData.bonuses = salesrep.bonuses;
 			salesRepName.value = salesrep.name;
+			salesRepId.value = salesrep.id;
 		};
 
 		const payrollDate = () => {
@@ -57,8 +59,6 @@ export default defineComponent({
 			let endOfFirstCutOff = dayjs(Date.now()).startOf('month').add(14, 'day').toString();
 			let startSecondCutOff = dayjs(endOfFirstCutOff).add(1, 'day').toString();
 			let lastDay = dayjs(Date.now()).endOf('month').toString();
-
-			console.log(lastDay);
 
 			if (dayjs(Date.now()).isBetween(firstDay, endOfFirstCutOff)) {
 				range.start = new Date(firstDay);
@@ -73,6 +73,29 @@ export default defineComponent({
 			}
 		};
 
+		const commissionProcessing = async () => {
+			let commission: any = (salesRepData.commission_percentage / 100) * comData.openingBalance;
+			let tax: any = (salesRepData.tax_rate / 100) * commission; //120
+			let bonusTax: any = (2 / 100) * comData.bonuses; // 4
+			let bonus: any = comData.bonuses - bonusTax.toFixed(); // 196
+			let earnedCom: any = commission.toFixed(2) - tax;
+			comData.salesRepCommission = earnedCom + bonus;
+			comData.eliteInsureCommision = comData.openingBalance - earnedCom;
+			comData.taxable = commission - tax;
+
+			const commissionData = {
+				sales_rep_id: salesRepId.value,
+				commission: comData.salesRepCommission,
+				bonus: comData.bonuses,
+				name: comData.clientName,
+				opening_balance: comData.openingBalance,
+				elite_insure_commission: comData.eliteInsureCommision,
+				payslip_date: `${dayjs(range.start).format('MM/DD/YYYY')} - ${dayjs(range.end).format('MM/DD/YYYY')}`
+			};
+
+			await commissionStore.store(commissionData);
+		};
+
 		payrollDate();
 		storeSalesRep();
 
@@ -85,7 +108,9 @@ export default defineComponent({
 			range,
 			showSalesRepCreds,
 			disabledStartDay,
-			disabledEndDay
+			disabledEndDay,
+			commissionProcessing,
+			comData
 		};
 	}
 });
