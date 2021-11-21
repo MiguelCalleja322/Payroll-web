@@ -11,6 +11,18 @@ export const useCommissionStore = defineStore('commission', {
 	}),
 
 	actions: {
+		async index() {
+			await axios
+				.get(`${name}`)
+				.then(response => {
+					this.error = null;
+					this.commission = response.data;
+				})
+				.catch(error => {
+					this.error = error;
+				});
+		},
+
 		async store(commissionData: object) {
 			await axios
 				.post(`${name}`, commissionData)

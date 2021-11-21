@@ -12,6 +12,10 @@ const routes = [
 			{
 				path: '/salesrep',
 				component: () => import(/* webpackChunkName: "signup" */ './components/Salesrep/Salesrep.vue')
+			},
+			{
+				path: '/pdflist',
+				component: () => import(/* webpackChunkName: "signup" */ './components/PDFList/PDFList.vue')
 			}
 		]
 	},

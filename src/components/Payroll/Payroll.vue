@@ -1,6 +1,6 @@
 <template>
-	<div class="w-screen h-full flex">
-		<div class="w-80 p-3 border-2 rounded-md m-3">
+	<div class="w-screen h-full flex justify-center">
+		<div class="w-1/2 p-3 border-2 rounded-md m-3">
 			<input type="hidden" name="remember" value="true" />
 			<div class="rounded-md shadow-sm">
 				<div class="mb-3"><span>Select Representative:</span></div>

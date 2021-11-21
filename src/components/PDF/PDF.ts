@@ -18,8 +18,8 @@ export default defineComponent({
 
 		onMounted(async () => {
 			await commissionStore.show(route.params.slug);
-			finalComData.value = await commissionStore.getCommission;
-			finalSalesData.value = await commissionStore.getSales;
+			finalComData.value = commissionStore.getCommission;
+			finalSalesData.value = commissionStore.getSales;
 
 			await nextTick();
 			loading.value = true;
