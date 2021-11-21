@@ -19,7 +19,11 @@ const routes = [
 		path: '/signup',
 		component: () => import(/* webpackChunkName: "signup" */ './components/Signup/Signup.vue')
 	},
-
+	{
+		path: '/:slug',
+		name: 'pdf',
+		component: () => import(/* webpackChunkName: "PDF" */ './components/PDF/PDF.vue')
+	},
 	{
 		path: '/:pathMatch(.*)*',
 		name: '404',

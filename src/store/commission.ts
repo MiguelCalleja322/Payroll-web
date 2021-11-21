@@ -12,17 +12,27 @@ export const useCommissionStore = defineStore('commission', {
 
 	actions: {
 		async store(commissionData: object) {
-			await axios.post(`${name}`, commissionData);
-		},
-
-		async index() {
 			await axios
-				.get(`${name}`)
+				.post(`${name}`, commissionData)
 				.then(response => {
 					this.error = null;
 					this.client = response.data.client;
 					this.sales = response.data.sales;
-					this.commission = response.data.commission;
+					this.commission = response.data;
+				})
+				.catch(error => {
+					this.error = error;
+				});
+		},
+
+		async show(slug: any) {
+			await axios
+				.get(`${name}/${slug}`)
+				.then(response => {
+					this.error = null;
+					this.client = response.data.client;
+					this.sales = response.data.sales;
+					this.commission = response.data;
 				})
 				.catch(error => {
 					this.error = error;
@@ -39,7 +49,7 @@ export const useCommissionStore = defineStore('commission', {
 			return state.client;
 		},
 
-		getsales(state) {
+		getSales(state) {
 			return state.sales;
 		},
 

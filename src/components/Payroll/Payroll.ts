@@ -5,6 +5,8 @@ import { Calendar, DatePicker } from 'v-calendar';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import { useCommissionStore } from '../../store/commission';
+import router from '../../router';
+import Commission from '../../models/Commission';
 
 export default defineComponent({
 	components: {
@@ -17,6 +19,7 @@ export default defineComponent({
 		const commissionStore = useCommissionStore();
 		const salesrepStore = useSalesrepStore();
 		const salesreps: any = ref<Salesrep>();
+		const savedCommission: any = ref<Commission>();
 		const salesRepData: any = reactive({
 			commission_percentage: 0,
 			tax_rate: 0,
@@ -29,7 +32,7 @@ export default defineComponent({
 			start: new Date(),
 			end: new Date()
 		});
-		const disabledStartDay = ref('');
+		const disabledStartDay: any = ref('');
 		const disabledEndDay = ref('');
 		const comData: any = reactive({
 			openingBalance: '',
@@ -38,7 +41,8 @@ export default defineComponent({
 			eliteInsureCommision: '',
 			numberOfClients: '',
 			taxable: '',
-			salesRepCommission: ''
+			salesRepCommission: '',
+			slug: ''
 		});
 
 		const storeSalesRep = async () => {
@@ -94,6 +98,14 @@ export default defineComponent({
 			};
 
 			await commissionStore.store(commissionData);
+			savedCommission.value = commissionStore.getCommission;
+
+			console.log(savedCommission.value.commission, 'teststeste');
+
+			router.push({
+				name: 'pdf',
+				params: { slug: savedCommission.value.commission.slug }
+			});
 		};
 
 		payrollDate();

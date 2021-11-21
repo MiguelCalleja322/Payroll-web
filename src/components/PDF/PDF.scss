@@ -1,0 +1,7 @@
+.table_header {
+	@apply px-6 bg-gray-50 text-gray-500 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left;
+}
+
+.table_item {
+	@apply border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4;
+}

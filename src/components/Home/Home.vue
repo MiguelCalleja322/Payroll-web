@@ -23,7 +23,7 @@
 
 								<router-link to="/" class="navbar_sm_links">Create Payroll</router-link>
 
-								<router-link to="/" class="navbar_sm_links">PDFs</router-link>
+								<router-link to="/pdf" class="navbar_sm_links">PDFs</router-link>
 							</div>
 						</div>
 					</div>
